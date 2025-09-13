@@ -6,7 +6,8 @@ export default {
       colors: {        
         "dodgeroll-gold": "#F79F1A",
         "apple-green": "#046E1B",
-        "dire-wolf": "#292727"
+        "dire-wolf": "#292727",
+        "cream": "#f1f1f1",
       },
       fontFamily: {
         "Montserrat": ["Montserrat", "sans-serif"]

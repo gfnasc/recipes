@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const { data, error } = await useAsyncData("recipes", () =>
-  $fetch("https://dummyjson.com/recipes?limit=10")
+import { type RecipesResponse } from "~/types";
+
+const { data, error } = await useFetch<RecipesResponse>(
+  "https://dummyjson.com/recipes?limit=10"
 );
 </script>
 
 <template>
   <main>
-    <section class="bg-[#f1f1f1]">
+    <section class="bg-cream">
       <div
         class="container flex flex-col lg:flex-row items-center py-20 gap-10"
       >
@@ -41,7 +43,7 @@ const { data, error } = await useAsyncData("recipes", () =>
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8"
       >
         <div
-          v-for="recipe in data.recipes"
+          v-for="recipe in data?.recipes"
           class="flex flex-col shadow rounded-md"
         >
           <NuxtImg
