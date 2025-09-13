@@ -12,5 +12,8 @@ export default defineNuxtConfig({
     families: {
       Montserrat: true
     }
+  },
+  image: {
+    domains: ['dummyjson.com']
   }
 })
