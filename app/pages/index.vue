@@ -25,6 +25,9 @@ const { data, error } = await useFetch<RecipesResponse>(
         >
           <NuxtImg
             :src="recipe.image"
+            sizes="xs:100vw sm:50vw lg:400px"
+            format="webp"
+            densities="x1"
             :alt="recipe.name"
             class="rounded-t-md"
           />
