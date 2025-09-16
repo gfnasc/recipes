@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { type RecipesResponse } from "~/types";
+import { useRecipesStore } from "~/store/recipes";
+import { storeToRefs } from "pinia";
 
-const { data, error } = await useFetch<RecipesResponse>(
-  "https://dummyjson.com/recipes?limit=10"
-);
+const recipesStore = useRecipesStore();
+const { recipes } = storeToRefs(recipesStore);
+
+await recipesStore.fetchRecipes();
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const { data, error } = await useFetch<RecipesResponse>(
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8"
       >
         <div
-          v-for="recipe in data?.recipes"
+          v-for="recipe in recipes"
           class="flex flex-col shadow rounded-md"
         >
           <NuxtImg
