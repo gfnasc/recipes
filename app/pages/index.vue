@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useRecipesStore } from "~~/store/recipes";
+import { useRecipesStore } from "~/store/recipes";
 import { storeToRefs } from "pinia";
-import { useDebounce } from "~~/composables/useDebounce";
+import { useDebounce } from "~/composables/useDebounce";
 
 const recipesStore = useRecipesStore();
 const { recipes } = storeToRefs(recipesStore);

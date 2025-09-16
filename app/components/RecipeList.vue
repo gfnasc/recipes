@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Recipe } from "~~/types/types";
+import type { Recipe } from "~/types/types";
 
 defineProps<{
   recipes: Recipe[];

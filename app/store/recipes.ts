@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { type RecipesResponse, type Recipe } from '~~/types/types';
+import { type RecipesResponse, type Recipe } from '~/types/types';
 
 export const useRecipesStore = defineStore('recipes', () => {
   const recipes = ref<Recipe[]>([]);
