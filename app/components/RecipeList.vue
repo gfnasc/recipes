@@ -7,7 +7,11 @@ defineProps<{
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+  <TransitionGroup
+    tag="div"
+    name="recipe-card"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8"
+  >
     <div
       v-for="recipe in recipes"
       :key="recipe.id"
@@ -48,5 +52,21 @@ defineProps<{
         </button>
       </div>
     </div>
-  </div>
+  </TransitionGroup>
 </template>
+
+<style>
+.recipe-card-move,
+.recipe-card-enter-active,
+.recipe-card-leave-active {
+  transition: all 0.5s ease;
+}
+.recipe-card-enter-from,
+.recipe-card-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+.recipe-card-leave-active {
+  position: absolute;
+}
+</style>

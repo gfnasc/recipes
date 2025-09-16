@@ -1,17 +1,23 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { useRecipesStore } from "~/store/recipes";
 import { storeToRefs } from "pinia";
 import { useDebounce } from "~/composables/useDebounce";
+import { useIntersectionObserver } from "~/composables/useIntersectionObserver";
 
 const recipesStore = useRecipesStore();
-const { recipes } = storeToRefs(recipesStore);
+const { recipes, loading, hasMore } = storeToRefs(recipesStore);
 
 const searchQuery = ref("");
+const sentinel = ref<Element | null>(null);
 
 const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
-await recipesStore.fetchRecipes();
+const { isIntersecting } = useIntersectionObserver(sentinel);
+
+onMounted(() => {
+  recipesStore.fetchRecipes();
+});
 
 watch(debouncedSearchQuery, (newQuery) => {
   const query = newQuery as string;
@@ -19,6 +25,12 @@ watch(debouncedSearchQuery, (newQuery) => {
     recipesStore.fetchRecipes(query);
   } else if (query.length === 0) {
     recipesStore.fetchRecipes();
+  }
+});
+
+watch(isIntersecting, (isIntersecting) => {
+  if (isIntersecting && hasMore.value) {
+    recipesStore.fetchRecipes(searchQuery.value, true);
   }
 });
 </script>
@@ -41,6 +53,8 @@ watch(debouncedSearchQuery, (newQuery) => {
       <h2 class="text-3xl lg:text-5xl mb-2">Discover, Create, Share</h2>
       <p class="text-lg lg:text-xl mb-8">Check out our most popular recipes!</p>
       <RecipeList :recipes="recipes" />
+      <div ref="sentinel"></div>
+      <div v-if="loading" class="text-center">Loading...</div>
     </section>
   </main>
 </template>
