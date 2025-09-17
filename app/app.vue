@@ -1,8 +1,13 @@
+<script setup lang="ts">
+import Footer from '~/components/Footer.vue';
+</script>
+
 <template>
-  <div class="font-Montserrat">
+  <div class="font-Montserrat flex flex-col min-h-screen">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+    <Footer />
   </div>
 </template>
 
