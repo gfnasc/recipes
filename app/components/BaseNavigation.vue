@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const isSidebarOpen = ref(false);
+
+function toggleSidebar() {
+  isSidebarOpen.value = !isSidebarOpen.value;
+}
+</script>
 
 <template>
   <header class="py-4 border-b">
@@ -13,7 +21,7 @@
         />
         <span class="text-3xl font-bold">Recipes</span>
       </NuxtLink>
-      <ul class="flex gap-6 ml-auto text-xl font-bold capitalize">
+      <ul class="hidden md:flex gap-6 ml-auto text-xl font-bold capitalize">
         <li>
           <NuxtLink to="/">Home</NuxtLink>
         </li>
@@ -21,8 +29,24 @@
           <NuxtLink to="/about">About</NuxtLink>
         </li>
       </ul>
+      <button @click="toggleSidebar" class="md:hidden ml-auto">
+        <Icon name="mdi:menu" size="32" />
+      </button>
     </nav>
   </header>
+
+  <!-- Sidebar -->
+  <div v-if="isSidebarOpen" @click="toggleSidebar" class="fixed inset-0 bg-black/25 z-10"></div>
+  <div :class="['fixed top-0 right-0 h-full bg-white w-64 z-20 transform transition-transform', isSidebarOpen ? 'translate-x-0' : 'translate-x-full']">
+    <ul class="flex flex-col p-4 gap-6 text-xl font-bold capitalize">
+      <li>
+        <NuxtLink to="/" @click="toggleSidebar">Home</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/about" @click="toggleSidebar">About</NuxtLink>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped></style>
