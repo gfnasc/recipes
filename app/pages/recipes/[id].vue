@@ -3,6 +3,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useRecipesStore } from "~/store/recipes";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
+import RecipeDetailSkeleton from "~/components/RecipeDetailSkeleton.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -27,14 +28,14 @@ onMounted(() => {
       <button @click="goBack" class="bg-dodgeroll-gold text-white px-4 py-2 rounded-md hover:bg-dodgeroll-gold-darker transition-colors">
         &larr; Back
       </button>
-      <div v-if="selectedRecipe" class="text-sm">
+      <div v-if="selectedRecipe && !loading" class="text-sm">
         <NuxtLink to="/" class="hover:underline">Home</NuxtLink>
         <span class="mx-2">/</span>
         <span class="text-gray-500">{{ selectedRecipe.name }}</span>
       </div>
     </div>
-    <div v-if="loading" class="text-center">
-      <p>Loading...</p>
+    <div v-if="loading">
+      <RecipeDetailSkeleton />
     </div>
     <div v-else-if="selectedRecipe">
       <h1 class="text-4xl lg:text-5xl font-bold mb-4">{{ selectedRecipe.name }}</h1>

@@ -4,6 +4,8 @@ import { useRecipesStore } from "~/store/recipes";
 import { storeToRefs } from "pinia";
 import { useDebounce } from "~/composables/useDebounce";
 import { useIntersectionObserver } from "~/composables/useIntersectionObserver";
+import Spinner from "~/components/Spinner.vue";
+import RecipeCardSkeleton from "~/components/RecipeCardSkeleton.vue";
 
 const recipesStore = useRecipesStore();
 const { recipes, loading, hasMore } = storeToRefs(recipesStore);
@@ -16,7 +18,9 @@ const debouncedSearchQuery = useDebounce(searchQuery, 500);
 const { isIntersecting } = useIntersectionObserver(sentinel);
 
 onMounted(() => {
-  recipesStore.fetchRecipes();
+  if (recipes.value.length === 0) {
+    recipesStore.fetchRecipes();
+  }
 });
 
 watch(debouncedSearchQuery, (newQuery) => {
@@ -29,7 +33,7 @@ watch(debouncedSearchQuery, (newQuery) => {
 });
 
 watch(isIntersecting, (isIntersecting) => {
-  if (isIntersecting && hasMore.value) {
+  if (isIntersecting && hasMore.value && !loading.value) {
     recipesStore.fetchRecipes(searchQuery.value, true);
   }
 });
@@ -57,9 +61,14 @@ watch(isIntersecting, (isIntersecting) => {
       </div>
     </section>
     <section class="py-10 container">
-      <RecipeList :recipes="recipes" />
+      <div v-if="loading && recipes.length === 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
+        <RecipeCardSkeleton v-for="n in 6" :key="n" />
+      </div>
+      <RecipeList v-else :recipes="recipes" />
       <div ref="sentinel"></div>
-      <div v-if="loading" class="text-center">Loading...</div>
+      <div v-if="loading && recipes.length > 0" class="py-8">
+        <Spinner />
+      </div>
     </section>
   </main>
 </template>
