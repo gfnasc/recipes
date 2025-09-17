@@ -37,16 +37,23 @@ watch(isIntersecting, (isIntersecting) => {
 
 <template>
   <main>
-    <section class="bg-cream">
-      <div
-        class="container flex flex-col lg:flex-row items-center py-10 gap-10"
-      >
-        <input
-          type="text"
-          v-model="searchQuery"
-          placeholder="Search for recipes..."
-          class="w-full p-2 border border-gray-300 rounded-md"
-        />
+    <section class="bg-cream py-12">
+      <div class="container">
+        <div class="max-w-2xl mx-auto">
+          <label for="search" class="block text-2xl font-semibold mb-2 text-center">Find Your Next Favorite Recipe</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <Icon name="mdi:magnify" class="text-gray-400" size="24" />
+            </div>
+            <input
+              id="search"
+              type="text"
+              v-model="searchQuery"
+              placeholder="Search for recipes..."
+              class="w-full p-3 pl-12 border border-gray-300 rounded-full shadow-sm focus:ring-dodgeroll-gold focus:border-dodgeroll-gold transition-colors"
+            />
+          </div>
+        </div>
       </div>
     </section>
     <section class="py-10 container">
