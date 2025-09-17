@@ -3,6 +3,7 @@ import { type RecipesResponse, type Recipe } from '~/types/types';
 
 export const useRecipesStore = defineStore('recipes', () => {
   const recipes = ref<Recipe[]>([]);
+  const selectedRecipe = ref<Recipe | null>(null);
   const loading = ref(false);
   const skip = ref(0);
   const limit = 12;
@@ -34,5 +35,15 @@ export const useRecipesStore = defineStore('recipes', () => {
     loading.value = false;
   }
 
-  return { recipes, loading, hasMore, fetchRecipes };
+  async function fetchRecipeById(id: number) {
+    if (loading.value) return;
+    loading.value = true;
+    const { data } = await useApiFetch<Recipe>(`/recipes/${id}`);
+    if (data.value) {
+      selectedRecipe.value = data.value;
+    }
+    loading.value = false;
+  }
+
+  return { recipes, selectedRecipe, loading, hasMore, fetchRecipes, fetchRecipeById };
 });

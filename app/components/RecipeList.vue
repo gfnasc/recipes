@@ -12,9 +12,10 @@ defineProps<{
     name="recipe-card"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8"
   >
-    <div
+    <NuxtLink
       v-for="recipe in recipes"
       :key="recipe.id"
+      :to="`/recipes/${recipe.id}`"
       class="flex flex-col shadow rounded-md"
     >
       <NuxtImg
@@ -45,13 +46,8 @@ defineProps<{
             <span>{{ recipe.rating }}</span>
           </div>
         </div>
-        <button
-          class="px-4 py-2 text-white self-start bg-dodgeroll-gold rounded-md text-base lg:text-lg cursor-pointer"
-        >
-          View
-        </button>
       </div>
-    </div>
+    </NuxtLink>
   </TransitionGroup>
 </template>
 
