@@ -23,9 +23,16 @@ onMounted(() => {
 
 <template>
   <main class="container py-10">
-    <button @click="goBack" class="mb-4 bg-dodgeroll-gold text-white px-4 py-2 rounded-md hover:bg-dodgeroll-gold/90">
-      &larr;
-    </button>
+    <div class="flex items-center gap-4 mb-4">
+      <button @click="goBack" class="bg-dodgeroll-gold text-white px-4 py-2 rounded-md hover:bg-dodgeroll-gold/90">
+        &larr; Back
+      </button>
+      <div v-if="selectedRecipe" class="text-sm">
+        <NuxtLink to="/" class="hover:underline">Home</NuxtLink>
+        <span class="mx-2">></span>
+        <span>{{ selectedRecipe.name }}</span>
+      </div>
+    </div>
     <div v-if="loading">
       <p>Loading...</p>
     </div>
