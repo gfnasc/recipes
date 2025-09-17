@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useRecipesStore } from "~/store/recipes";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
 
 const route = useRoute();
+const router = useRouter();
 const recipesStore = useRecipesStore();
 const { selectedRecipe, loading } = storeToRefs(recipesStore);
+
+function goBack() {
+  router.back();
+}
 
 onMounted(() => {
   const id = Number(route.params.id);
@@ -18,6 +23,9 @@ onMounted(() => {
 
 <template>
   <main class="container py-10">
+    <button @click="goBack" class="mb-4 bg-dodgeroll-gold text-white px-4 py-2 rounded-md hover:bg-dodgeroll-gold/90">
+      &larr;
+    </button>
     <div v-if="loading">
       <p>Loading...</p>
     </div>
