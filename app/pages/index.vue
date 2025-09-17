@@ -57,8 +57,6 @@ watch(isIntersecting, (isIntersecting) => {
       </div>
     </section>
     <section class="py-10 container">
-      <h2 class="text-3xl lg:text-5xl mb-2">Discover, Create, Share</h2>
-      <p class="text-lg lg:text-xl mb-8">Check out our most popular recipes!</p>
       <RecipeList :recipes="recipes" />
       <div ref="sentinel"></div>
       <div v-if="loading" class="text-center">Loading...</div>
