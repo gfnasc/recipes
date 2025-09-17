@@ -1,12 +1,12 @@
 # 🍳 Recipes
 
-Recipes is a recipe app (really?) based on the dummyJSON API, created by Guilherme Nascimento during John Komarnicki's Build Modern Apps with Nuxt crash course.
+Recipes is a recipe app (really?) based on the dummyJSON API, created by Guilherme Nascimento during John Komarnicki's Build Modern Apps with Nuxt crash course. The original tutorial provided a basic foundation, which I've expanded upon by implementing several additional features to enhance the application's functionality and user experience.
 
 It was created to review and refresh Nuxt concepts.
 
 ## ✨ Features
 
-- 📜 **Recipe Listing:** Browse a list of recipes with infinite scroll.
+- 📜 **Recipe infinite listing:** Browse a list of recipes with infinite scroll.
 - 🍽️ **Recipe Details:** View the full details of a recipe, including ingredients, instructions, and more.
 - 🔍 **Search:** Find recipes by name with a debounced search input.
 - 📱 **Responsive Design:** The app is fully responsive and works on all screen sizes, with a mobile-first approach.
